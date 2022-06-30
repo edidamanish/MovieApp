@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { FC } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const SearchScreen: FC = () => {
   return (
@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
   },
 });

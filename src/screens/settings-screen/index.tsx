@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { FC } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const SettingsScreen: FC = () => {
   return (

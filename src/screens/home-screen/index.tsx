@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {HomeIcon} from './../../assets';
+import React, { FC } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { HomeIcon } from './../../assets';
 
 const HomeScreen: FC = () => {
   return (
@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
 });
