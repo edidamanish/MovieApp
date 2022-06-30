@@ -127,15 +127,14 @@ const LoginScreen: FC = () => {
 							/>
 							<View style={styles.ctaContainer}>
 								<TouchableOpacity
-									style={styles.secondaryButton}>
+									style={styles.secondaryButton}
+									onPress={onRegisterClick}>
 									<Text style={styles.secondaryButtonText}>
 										Register
 									</Text>
 								</TouchableOpacity>
 								<View style={{ width: 10 }} />
-								<TouchableOpacity
-									style={styles.primaryButton}
-									onPress={onRegisterClick}>
+								<TouchableOpacity style={styles.primaryButton}>
 									<Text style={styles.primaryButtonText}>
 										Login
 									</Text>
@@ -164,15 +163,14 @@ const LoginScreen: FC = () => {
 							/>
 							<View style={styles.ctaContainer}>
 								<TouchableOpacity
-									style={styles.secondaryButton}>
+									style={styles.secondaryButton}
+									onPress={onLoginClick}>
 									<Text style={styles.secondaryButtonText}>
 										Login
 									</Text>
 								</TouchableOpacity>
 								<View style={{ width: 10 }} />
-								<TouchableOpacity
-									style={styles.primaryButton}
-									onPress={onLoginClick}>
+								<TouchableOpacity style={styles.primaryButton}>
 									<Text style={styles.primaryButtonText}>
 										Register
 									</Text>
