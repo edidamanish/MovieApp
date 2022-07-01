@@ -2,6 +2,7 @@ import React, { FC, useRef } from 'react';
 import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
 import { LinearGradient, Stop, Rect, Svg } from 'react-native-svg';
 import { Button, InputText } from '../../../components';
+import { LoginConstants } from '../../../constants';
 
 const LoginScreen: FC = () => {
 	const windowWidth = Dimensions.get('window').width;
@@ -102,48 +103,72 @@ const LoginScreen: FC = () => {
 					<View style={{ width: windowWidth, bottom: 0 }}>
 						<GradientView />
 						<View style={styles.bottomContainerChild}>
-							<Text style={styles.loginText}>Login</Text>
+							<Text style={styles.loginText}>
+								{LoginConstants.LOGIN}
+							</Text>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="User Name" />
+								<InputText
+									placeholderText={LoginConstants.USER_NAME}
+								/>
 							</View>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="Password" />
+								<InputText
+									placeholderText={LoginConstants.PASSWORD}
+								/>
 							</View>
 							<View style={styles.ctaContainer}>
 								<Button
-									text="Register"
+									text={LoginConstants.REGISTER}
 									type="secondary"
 									onPress={onRegisterClick}
 								/>
 								<View style={{ width: 10 }} />
-								<Button text="Login" type="primary" />
+								<Button
+									text={LoginConstants.LOGIN}
+									type="primary"
+								/>
 							</View>
 						</View>
 					</View>
 					<View style={{ width: windowWidth }}>
 						<GradientView />
 						<View style={styles.bottomContainerChild}>
-							<Text style={styles.loginText}>Register</Text>
+							<Text style={styles.loginText}>
+								{LoginConstants.REGISTER}
+							</Text>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="Email ID" />
+								<InputText
+									placeholderText={LoginConstants.EMAIL_ID}
+								/>
 							</View>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="User Name" />
+								<InputText
+									placeholderText={LoginConstants.USER_NAME}
+								/>
 							</View>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="Password" />
+								<InputText
+									placeholderText={LoginConstants.PASSWORD}
+								/>
 							</View>
 							<View style={styles.inputContainer}>
-								<InputText placeholderText="Confirm Password" />
+								<InputText
+									placeholderText={
+										LoginConstants.CONFIRM_PASSWORD
+									}
+								/>
 							</View>
 							<View style={styles.ctaContainer}>
 								<Button
-									text="Login"
+									text={LoginConstants.LOGIN}
 									type="secondary"
 									onPress={onLoginClick}
 								/>
 								<View style={{ width: 10 }} />
-								<Button text="Register" type="primary" />
+								<Button
+									text={LoginConstants.REGISTER}
+									type="primary"
+								/>
 							</View>
 						</View>
 					</View>
