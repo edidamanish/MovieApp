@@ -1,14 +1,5 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	TextInput,
-	TouchableOpacity,
-	Dimensions,
-	Animated
-} from 'react-native';
+import React, { FC, useRef } from 'react';
+import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
 import { LinearGradient, Stop, Rect, Svg } from 'react-native-svg';
 import { Button, InputText } from '../../../components';
 
