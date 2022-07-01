@@ -10,6 +10,7 @@ import {
 	Animated
 } from 'react-native';
 import { LinearGradient, Stop, Rect, Svg } from 'react-native-svg';
+import { Button, InputText } from '../../../components';
 
 const LoginScreen: FC = () => {
 	const windowWidth = Dimensions.get('window').width;
@@ -103,78 +104,55 @@ const LoginScreen: FC = () => {
 			/>
 			<Animated.View
 				style={[
-					styles.bottomContainer,
+					styles.bottomContainerParent,
 					{ transform: [{ translateX: xTransaltion }] }
 				]}>
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'flex-end'
-					}}>
+				<View style={styles.bottomContainer}>
 					<View style={{ width: windowWidth, bottom: 0 }}>
 						<GradientView />
-						<View style={styles.bottomContainerSub}>
+						<View style={styles.bottomContainerChild}>
 							<Text style={styles.loginText}>Login</Text>
-							<TextInput
-								style={styles.input}
-								placeholder={'User Name'}
-								placeholderTextColor={'white'}
-							/>
-							<TextInput
-								style={styles.input}
-								placeholder={'Password'}
-								placeholderTextColor={'white'}
-							/>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="User Name" />
+							</View>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="Password" />
+							</View>
 							<View style={styles.ctaContainer}>
-								<TouchableOpacity
-									style={styles.secondaryButton}
-									onPress={onRegisterClick}>
-									<Text style={styles.secondaryButtonText}>
-										Register
-									</Text>
-								</TouchableOpacity>
+								<Button
+									text="Register"
+									type="secondary"
+									onPress={onRegisterClick}
+								/>
 								<View style={{ width: 10 }} />
-								<TouchableOpacity style={styles.primaryButton}>
-									<Text style={styles.primaryButtonText}>
-										Login
-									</Text>
-								</TouchableOpacity>
+								<Button text="Login" type="primary" />
 							</View>
 						</View>
 					</View>
 					<View style={{ width: windowWidth }}>
 						<GradientView />
-						<View style={styles.bottomContainerSub}>
+						<View style={styles.bottomContainerChild}>
 							<Text style={styles.loginText}>Register</Text>
-							<TextInput
-								style={styles.input}
-								placeholder={'Email ID'}
-								placeholderTextColor={'white'}
-							/>
-							<TextInput
-								style={styles.input}
-								placeholder={'User Name'}
-								placeholderTextColor={'white'}
-							/>
-							<TextInput
-								style={styles.input}
-								placeholder={'Password'}
-								placeholderTextColor={'white'}
-							/>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="Email ID" />
+							</View>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="User Name" />
+							</View>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="Password" />
+							</View>
+							<View style={styles.inputContainer}>
+								<InputText placeholderText="Confirm Password" />
+							</View>
 							<View style={styles.ctaContainer}>
-								<TouchableOpacity
-									style={styles.secondaryButton}
-									onPress={onLoginClick}>
-									<Text style={styles.secondaryButtonText}>
-										Login
-									</Text>
-								</TouchableOpacity>
+								<Button
+									text="Login"
+									type="secondary"
+									onPress={onLoginClick}
+								/>
 								<View style={{ width: 10 }} />
-								<TouchableOpacity style={styles.primaryButton}>
-									<Text style={styles.primaryButtonText}>
-										Register
-									</Text>
-								</TouchableOpacity>
+								<Button text="Register" type="primary" />
 							</View>
 						</View>
 					</View>
@@ -196,12 +174,16 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%'
 	},
-	bottomContainer: {
+	bottomContainerParent: {
 		position: 'absolute',
 		bottom: 0,
 		left: 0
 	},
-	bottomContainerSub: { backgroundColor: '#171717' },
+	bottomContainer: {
+		flexDirection: 'row',
+		alignItems: 'flex-end'
+	},
+	bottomContainerChild: { backgroundColor: '#171717' },
 	loginText: {
 		marginTop: 20,
 		marginBottom: 20,
@@ -244,13 +226,8 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		fontWeight: 'bold'
 	},
-	input: {
-		height: 40,
+	inputContainer: {
 		marginVertical: 12,
-		marginHorizontal: 20,
-		borderBottomWidth: 1,
-		padding: 10,
-		color: 'white',
-		borderBottomColor: 'white'
+		marginHorizontal: 20
 	}
 });
