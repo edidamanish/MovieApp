@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type ButtonProps = {
@@ -8,27 +8,27 @@ type ButtonProps = {
 };
 
 const Button: FC<ButtonProps> = ({ type, text, onPress }) => {
-	const buttonStyle = useMemo(() => {
+	const buttonStyle = () => {
 		switch (type) {
 			case 'primary':
 				return styles.primaryButton;
 			case 'secondary':
 				return styles.secondaryButton;
 		}
-	}, [type]);
+	};
 
-	const buttonTextStyle = useMemo(() => {
+	const buttonTextStyle = () => {
 		switch (type) {
 			case 'primary':
 				return styles.primaryButtonText;
 			case 'secondary':
 				return styles.secondaryButtonText;
 		}
-	}, [type]);
+	};
 
 	return (
-		<TouchableOpacity style={buttonStyle} onPress={onPress}>
-			<Text style={buttonTextStyle}>{text}</Text>
+		<TouchableOpacity style={buttonStyle()} onPress={onPress}>
+			<Text style={buttonTextStyle()}>{text}</Text>
 		</TouchableOpacity>
 	);
 };
