@@ -1,48 +1,48 @@
-import React, { FC, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
-import { LinearGradient, Stop, Rect, Svg } from 'react-native-svg';
-import { Button, InputText } from '../../../components';
-import { LoginConstants } from '../../../constants';
+import React, { FC, useRef } from 'react'
+import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native'
+import { LinearGradient, Stop, Rect, Svg } from 'react-native-svg'
+import { Button, InputText } from '../../../components'
+import { LoginConstants } from '../../../constants'
 
 const LoginScreen: FC = () => {
-	const windowWidth = Dimensions.get('window').width;
-	const windowHeight = Dimensions.get('window').height;
-	const xTransaltion = useRef(new Animated.Value(0)).current;
-	const fadeInOpacity = useRef(new Animated.Value(1)).current;
-	const fadeOutOpacity = useRef(new Animated.Value(0)).current;
+	const windowWidth = Dimensions.get('window').width
+	const windowHeight = Dimensions.get('window').height
+	const xTransaltion = useRef(new Animated.Value(0)).current
+	const fadeInOpacity = useRef(new Animated.Value(1)).current
+	const fadeOutOpacity = useRef(new Animated.Value(0)).current
 
 	const imageSourceList = [
 		'../../../assets/images/spiderverse.webp',
 		'../../../assets/images/encantoMirable.jpeg',
 		'../../../assets/images/shaunTheSheep.jpeg',
 		'../../../assets/images/DrivePoster.jpeg'
-	];
+	]
 
 	const startBottomContainerAnimation = (showLogin: boolean) => {
 		Animated.timing(xTransaltion, {
 			toValue: showLogin ? 0 : -windowWidth,
 			useNativeDriver: true,
 			duration: 300
-		}).start();
+		}).start()
 		Animated.timing(fadeInOpacity, {
 			toValue: showLogin ? 1 : 0,
 			useNativeDriver: true,
 			duration: 300
-		}).start();
+		}).start()
 		Animated.timing(fadeOutOpacity, {
 			toValue: showLogin ? 0 : 1,
 			useNativeDriver: true,
 			duration: 300
-		}).start();
-	};
+		}).start()
+	}
 
 	const onRegisterClick = () => {
-		startBottomContainerAnimation(false);
-	};
+		startBottomContainerAnimation(false)
+	}
 
 	const onLoginClick = () => {
-		startBottomContainerAnimation(true);
-	};
+		startBottomContainerAnimation(true)
+	}
 
 	const GradientView: FC = () => {
 		return (
@@ -70,8 +70,8 @@ const LoginScreen: FC = () => {
 					/>
 				</Svg>
 			</View>
-		);
-	};
+		)
+	}
 
 	return (
 		<View style={styles.conatiner}>
@@ -175,10 +175,10 @@ const LoginScreen: FC = () => {
 				</View>
 			</Animated.View>
 		</View>
-	);
-};
+	)
+}
 
-export default LoginScreen;
+export default LoginScreen
 
 const styles = StyleSheet.create({
 	conatiner: {
@@ -246,4 +246,4 @@ const styles = StyleSheet.create({
 		marginVertical: 12,
 		marginHorizontal: 20
 	}
-});
+})

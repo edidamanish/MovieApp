@@ -1,39 +1,39 @@
-import React, { FC } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { FC } from 'react'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 type ButtonProps = {
-	type: 'primary' | 'secondary';
-	text: string;
-	onPress?: () => void;
-};
+	type: 'primary' | 'secondary'
+	text: string
+	onPress?: () => void
+}
 
 const Button: FC<ButtonProps> = ({ type, text, onPress }) => {
 	const buttonStyle = () => {
 		switch (type) {
 			case 'primary':
-				return styles.primaryButton;
+				return styles.primaryButton
 			case 'secondary':
-				return styles.secondaryButton;
+				return styles.secondaryButton
 		}
-	};
+	}
 
 	const buttonTextStyle = () => {
 		switch (type) {
 			case 'primary':
-				return styles.primaryButtonText;
+				return styles.primaryButtonText
 			case 'secondary':
-				return styles.secondaryButtonText;
+				return styles.secondaryButtonText
 		}
-	};
+	}
 
 	return (
 		<TouchableOpacity style={buttonStyle()} onPress={onPress}>
 			<Text style={buttonTextStyle()}>{text}</Text>
 		</TouchableOpacity>
-	);
-};
+	)
+}
 
-export default Button;
+export default Button
 
 const styles = StyleSheet.create({
 	primaryButton: {
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		fontWeight: 'bold'
 	}
-});
+})

@@ -4,5 +4,5 @@ export const LoginConstants = {
 	EMAIL_ID: 'Email ID',
 	USER_NAME: 'User Name',
 	PASSWORD: 'Password',
-    CONFIRM_PASSWORD: 'Confirm Password',
-};
+	CONFIRM_PASSWORD: 'Confirm Password'
+}
