@@ -1,21 +1,43 @@
-import React, { FC } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import React, { FC } from 'react'
+import { StyleSheet, TextInput, Text } from 'react-native'
 
 type InputTextProps = {
-	placeholderText: string;
-};
+	placeholderText: string
+	error?: string
+	value?: string
+	onEndEditing?: () => void
+	onChangeText?: (text?: string) => void
+	secureTextEntry?: boolean
+}
 
-const InputText: FC<InputTextProps> = ({ placeholderText }) => {
+const InputText: FC<InputTextProps> = props => {
+	const {
+		placeholderText,
+		error,
+		value,
+		onEndEditing,
+		onChangeText,
+		secureTextEntry
+	} = props
 	return (
-		<TextInput
-			style={styles.input}
-			placeholder={placeholderText}
-			placeholderTextColor={'white'}
-		/>
-	);
-};
+		<>
+			<TextInput
+				style={styles.input}
+				placeholder={placeholderText}
+				placeholderTextColor={'white'}
+				value={value}
+				onEndEditing={onEndEditing}
+				onChangeText={onChangeText}
+				secureTextEntry={secureTextEntry}
+			/>
+			{error ? (
+				<Text style={styles.errorText}>{'some error'}</Text>
+			) : null}
+		</>
+	)
+}
 
-export default InputText;
+export default InputText
 
 const styles = StyleSheet.create({
 	input: {
@@ -24,5 +46,10 @@ const styles = StyleSheet.create({
 		padding: 10,
 		color: 'white',
 		borderBottomColor: 'white'
+	},
+	errorText: {
+		paddingHorizontal: 10,
+		marginTop: 4,
+		color: 'red'
 	}
-});
+})
