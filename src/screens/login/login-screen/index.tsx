@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useContext, useRef } from 'react'
 import { View, StyleSheet, Dimensions, Animated } from 'react-native'
 import { LoginContainer, RegisterContainer } from './components'
 

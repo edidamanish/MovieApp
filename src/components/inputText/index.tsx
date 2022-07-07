@@ -29,6 +29,7 @@ const InputText: FC<InputTextProps> = props => {
 				onEndEditing={onEndEditing}
 				onChangeText={onChangeText}
 				secureTextEntry={secureTextEntry}
+				autoCapitalize={'none'}
 			/>
 			{error ? (
 				<Text style={styles.errorText}>{'some error'}</Text>

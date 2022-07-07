@@ -1,8 +1,10 @@
 import { GradientView } from './gradient-view'
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Button, InputText } from '../../../../components'
 import { LoginConstants } from '../../../../constants'
+import { registerUser } from '../../../../networking'
+import { UserContext } from '../../../../contexts'
 
 type RegisterContainerProps = {
 	onLoginClick: () => void
@@ -10,14 +12,27 @@ type RegisterContainerProps = {
 
 export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	const windowWidth = Dimensions.get('window').width
-	const [userName, setUserName] = useState(null)
-	const [email, setEmail] = useState(null)
-	const [password, setPassword] = useState(null)
-	const [confirmPassword, setConfirmPassword] = useState(null)
-
+	const [userName, setUserName] = useState<string | null>(null)
+	const [email, setEmail] = useState<string | null>(null)
+	const [password, setPassword] = useState<string | null>(null)
+	const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
+	const { setIsLoggedIn } = useContext(UserContext)
 	const { onLoginClick } = props
 
-	const onRegisterClick = () => {}
+	const onRegisterClick = async () => {
+		if (userName && email && password) {
+			try {
+				await registerUser({
+					userName: userName,
+					email: email,
+					password: password
+				})
+				setIsLoggedIn(true)
+			} catch {
+				//Handle Error
+			}
+		}
+	}
 
 	const onChangeEmail = (text?: string) => {
 		setEmail(text)
@@ -77,7 +92,11 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 						onPress={onLoginClick}
 					/>
 					<View style={{ width: 10 }} />
-					<Button text={LoginConstants.REGISTER} type="primary" />
+					<Button
+						text={LoginConstants.REGISTER}
+						type="primary"
+						onPress={onRegisterClick}
+					/>
 				</View>
 			</View>
 		</View>
