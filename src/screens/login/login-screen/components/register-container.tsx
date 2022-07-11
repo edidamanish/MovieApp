@@ -1,10 +1,9 @@
 import { GradientView } from './gradient-view'
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Button, InputText } from '../../../../components'
 import { LoginConstants } from '../../../../constants'
-import { registerUser } from '../../../../networking'
-import { UserContext } from '../../../../contexts'
+import { useAuthUtilites } from '../../../../hooks'
 
 type RegisterContainerProps = {
 	onLoginClick: () => void
@@ -16,38 +15,23 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	const [email, setEmail] = useState<string | null>(null)
 	const [password, setPassword] = useState<string | null>(null)
 	const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
-	const { setIsLoggedIn } = useContext(UserContext)
+	const { registerUser } = useAuthUtilites()
+
 	const { onLoginClick } = props
 
 	const onRegisterClick = async () => {
 		if (userName && email && password) {
 			try {
 				await registerUser({
-					userName: userName,
-					email: email,
-					password: password
+					userName,
+					email,
+					password
 				})
-				setIsLoggedIn(true)
-			} catch {
+			} catch (err: any) {
 				//Handle Error
+				console.log('register click error:', err)
 			}
 		}
-	}
-
-	const onChangeEmail = (text?: string) => {
-		setEmail(text)
-	}
-
-	const onChangeUserName = (text?: string) => {
-		setUserName(text)
-	}
-
-	const onChangePassword = (text?: string) => {
-		setPassword(text)
-	}
-
-	const onChangeConfirmPassword = (text?: string) => {
-		setConfirmPassword(text)
 	}
 
 	return (
@@ -59,21 +43,21 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 					<InputText
 						placeholderText={LoginConstants.EMAIL_ID}
 						value={email}
-						onChangeText={onChangeEmail}
+						onChangeText={setEmail}
 					/>
 				</View>
 				<View style={styles.inputContainer}>
 					<InputText
 						placeholderText={LoginConstants.USER_NAME}
 						value={userName}
-						onChangeText={onChangeUserName}
+						onChangeText={setUserName}
 					/>
 				</View>
 				<View style={styles.inputContainer}>
 					<InputText
 						placeholderText={LoginConstants.PASSWORD}
 						value={password}
-						onChangeText={onChangePassword}
+						onChangeText={setPassword}
 						secureTextEntry={true}
 					/>
 				</View>
@@ -81,7 +65,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 					<InputText
 						placeholderText={LoginConstants.CONFIRM_PASSWORD}
 						value={confirmPassword}
-						onChangeText={onChangeConfirmPassword}
+						onChangeText={setConfirmPassword}
 						secureTextEntry={true}
 					/>
 				</View>

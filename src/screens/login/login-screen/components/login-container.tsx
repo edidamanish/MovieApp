@@ -1,8 +1,9 @@
 import { GradientView } from './gradient-view'
-import React, { FC } from 'react'
-import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native'
+import React, { FC, useState } from 'react'
+import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Button, InputText } from '../../../../components'
 import { LoginConstants } from '../../../../constants'
+import { useAuthUtilites } from '../../../../hooks'
 
 type LoginContainerProps = {
 	onRegisterClick: () => void
@@ -10,9 +11,25 @@ type LoginContainerProps = {
 
 export const LoginContainer: FC<LoginContainerProps> = props => {
 	const windowWidth = Dimensions.get('window').width
+	const [userName, setUserName] = useState<string | null>(null)
+	const [password, setPassword] = useState<string | null>(null)
+	const { loginUser } = useAuthUtilites()
+
 	const { onRegisterClick } = props
 
-	const onLoginClick = () => {}
+	const onLoginClick = async () => {
+		if (userName && password) {
+			try {
+				await loginUser({
+					userName,
+					password
+				})
+			} catch (err: any) {
+				//Handle Error
+				console.log('login click error:', err)
+			}
+		}
+	}
 
 	return (
 		<View style={{ width: windowWidth, bottom: 0 }}>
@@ -20,10 +37,19 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 			<View style={styles.container}>
 				<Text style={styles.loginText}>{LoginConstants.LOGIN}</Text>
 				<View style={styles.inputContainer}>
-					<InputText placeholderText={LoginConstants.USER_NAME} />
+					<InputText
+						placeholderText={LoginConstants.USER_NAME}
+						value={userName}
+						onChangeText={setUserName}
+					/>
 				</View>
 				<View style={styles.inputContainer}>
-					<InputText placeholderText={LoginConstants.PASSWORD} />
+					<InputText
+						placeholderText={LoginConstants.PASSWORD}
+						value={password}
+						onChangeText={setPassword}
+						secureTextEntry={true}
+					/>
 				</View>
 				<View style={styles.ctaContainer}>
 					<Button

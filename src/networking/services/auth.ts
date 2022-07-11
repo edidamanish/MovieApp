@@ -1,15 +1,14 @@
 import { createPostRequest } from '../make-axios-call'
 import { EndPoints } from './endPoints'
-import { CustomErrorModel, LoginResponseModel } from '../../models'
+import {
+	CustomErrorModel,
+	LoginRequestProps,
+	LoginResponseModel,
+	RegisterRequestProps
+} from '../../models'
 import { SOMETHING_WENT_WRONG } from '../../constants'
-import * as Keychain from 'react-native-keychain'
 
-type LoginRequestProps = {
-	userName: string
-	password: string
-}
-
-const loginUser = (props: LoginRequestProps): Promise<void> => {
+const loginUser = (props: LoginRequestProps): Promise<LoginResponseModel> => {
 	const { userName, password } = props
 	return new Promise((resolve, reject) => {
 		createPostRequest({
@@ -19,10 +18,10 @@ const loginUser = (props: LoginRequestProps): Promise<void> => {
 				password
 			}
 		})
-			.then((response: any) => {
+			.then((response: LoginResponseModel) => {
 				if (response?.authToken && response?.username) {
 					try {
-						resolve()
+						resolve(response)
 					} catch {
 						reject(new Error(SOMETHING_WENT_WRONG))
 					}
@@ -35,13 +34,9 @@ const loginUser = (props: LoginRequestProps): Promise<void> => {
 			})
 	})
 }
-
-type RegisterRequestProps = {
-	userName: string
-	email: string
-	password: string
-}
-const registerUser = async (props: RegisterRequestProps): Promise<void> => {
+const registerUser = async (
+	props: RegisterRequestProps
+): Promise<LoginResponseModel> => {
 	const { userName, email, password } = props
 	return new Promise((resolve, reject) => {
 		createPostRequest({
@@ -55,7 +50,7 @@ const registerUser = async (props: RegisterRequestProps): Promise<void> => {
 			.then((response: LoginResponseModel) => {
 				if (response?.authToken && response?.username) {
 					try {
-						resolve()
+						resolve(response)
 					} catch {
 						reject(new Error(SOMETHING_WENT_WRONG))
 					}
