@@ -10,6 +10,7 @@ import {
 } from '../networking'
 import { UserContext } from '../contexts'
 import { useContext } from 'react'
+import { KeyChainKeys } from '../constants'
 
 const useAuthUtilites = () => {
 	const { setIsLoggedIn } = useContext(UserContext)
@@ -18,7 +19,7 @@ const useAuthUtilites = () => {
 		setIsLoggedIn(true)
 		try {
 			await KeyChain.setGenericPassword(
-				authDetails.username,
+				KeyChainKeys.AUTH_TOKEN,
 				authDetails.authToken
 			)
 		} catch (err: any) {
