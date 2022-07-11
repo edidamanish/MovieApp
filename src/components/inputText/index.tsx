@@ -1,5 +1,12 @@
-import React, { FC } from 'react'
-import { StyleSheet, TextInput, Text } from 'react-native'
+import { SecureEye } from '../../assets'
+import React, { FC, useMemo, useState } from 'react'
+import {
+	StyleSheet,
+	TextInput,
+	Text,
+	View,
+	TouchableOpacity
+} from 'react-native'
 
 type InputTextProps = {
 	placeholderText: string
@@ -19,18 +26,39 @@ const InputText: FC<InputTextProps> = props => {
 		onChangeText,
 		secureTextEntry
 	} = props
+
+	const [isSecureTextVisible, setIsSecureTextVisible] = useState(false)
+
+	const showSecureTextEntry = useMemo(() => {
+		if (secureTextEntry && !isSecureTextVisible) return true
+		return false
+	}, [isSecureTextVisible, secureTextEntry])
+
+	const onSecureEyePress = () => {
+		setIsSecureTextVisible(!isSecureTextVisible)
+	}
+
 	return (
 		<>
-			<TextInput
-				style={styles.input}
-				placeholder={placeholderText}
-				placeholderTextColor={'white'}
-				value={value}
-				onEndEditing={onEndEditing}
-				onChangeText={onChangeText}
-				secureTextEntry={secureTextEntry}
-				autoCapitalize={'none'}
-			/>
+			<View style={styles.inputContainer}>
+				<TextInput
+					style={styles.input}
+					placeholder={placeholderText}
+					placeholderTextColor={'white'}
+					value={value}
+					onEndEditing={onEndEditing}
+					onChangeText={onChangeText}
+					secureTextEntry={showSecureTextEntry}
+					autoCapitalize={'none'}
+				/>
+				{secureTextEntry ? (
+					<TouchableOpacity
+						onPress={onSecureEyePress}
+						style={styles.secureImage}>
+						<SecureEye fill={'#FFFFFF'} />
+					</TouchableOpacity>
+				) : null}
+			</View>
 			{error ? (
 				<Text style={styles.errorText}>{'some error'}</Text>
 			) : null}
@@ -41,16 +69,23 @@ const InputText: FC<InputTextProps> = props => {
 export default InputText
 
 const styles = StyleSheet.create({
-	input: {
+	inputContainer: {
+		flex: 1,
+		flexDirection: 'row',
 		height: 40,
 		borderBottomWidth: 1,
 		padding: 10,
-		color: 'white',
 		borderBottomColor: 'white'
 	},
+	input: { flex: 1, flexGrow: 1, color: 'white' },
 	errorText: {
 		paddingHorizontal: 10,
 		marginTop: 4,
 		color: 'red'
+	},
+	secureImage: {
+		alignSelf: 'flex-end',
+		justifyContent: 'center',
+		marginLeft: 8
 	}
 })

@@ -7,7 +7,7 @@ import {
 } from './src/screens'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeIcon, SearchIcon, SettingsIcon } from './src/assets/images'
+import { HomeIcon, SearchIcon, SettingsIcon } from './src/assets/'
 import { UserContext } from './src/contexts'
 
 const Tab = createBottomTabNavigator()
