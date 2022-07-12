@@ -9,12 +9,24 @@ type LoginContainerProps = {
 	onRegisterClick: () => void
 }
 
+interface LoginViewYCords {
+	bottomViewYCoord: number
+	userNameYCoord: number
+	passwordYCoord: number
+}
+
 export const LoginContainer: FC<LoginContainerProps> = props => {
 	const windowWidth = Dimensions.get('window').width
 	const [userName, setUserName] = useState<string | null>(null)
 	const [password, setPassword] = useState<string | null>(null)
 	const { loginUser } = useAuthUtilites()
 	const { isKeyboardVisible, keyboardHeight } = useKeyboard()
+	const [loginViewYCords, setLoginViewYCords] = useState<LoginViewYCords>({
+		bottomViewYCoord: 0,
+		userNameYCoord: 0,
+		passwordYCoord: 0
+	})
+	const [bottomOffset, setBottomOffset] = useState(0)
 
 	const { onRegisterClick } = props
 
@@ -32,33 +44,81 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 		}
 	}
 
+	const onFocusInput = (inputType: 'username' | 'password') => {
+		switch (inputType) {
+			case 'username':
+				setBottomOffset(
+					loginViewYCords.bottomViewYCoord -
+						loginViewYCords.userNameYCoord
+				)
+				break
+			case 'password':
+				setBottomOffset(
+					loginViewYCords.bottomViewYCoord -
+						loginViewYCords.passwordYCoord
+				)
+				break
+		}
+	}
+
 	return (
 		<View
 			style={{
 				width: windowWidth,
 				bottom: isKeyboardVisible
-					? keyboardHeight - styles.ctaContainer.marginBottom + 20
+					? keyboardHeight -
+					  bottomOffset -
+					  styles.ctaContainer.marginBottom +
+					  20
 					: 0
 			}}>
 			<GradientView />
 			<View style={styles.container}>
 				<Text style={styles.loginText}>{LoginConstants.LOGIN}</Text>
-				<View style={styles.inputContainer}>
+				<View
+					style={styles.inputContainer}
+					onLayout={({ nativeEvent }) => {
+						setLoginViewYCords({
+							...loginViewYCords,
+							userNameYCoord:
+								nativeEvent.layout.y + nativeEvent.layout.height
+						})
+					}}>
 					<InputText
 						placeholderText={LoginConstants.USER_NAME}
 						value={userName}
 						onChangeText={setUserName}
+						onFocus={() => {
+							onFocusInput('username')
+						}}
 					/>
 				</View>
-				<View style={styles.inputContainer}>
+				<View
+					style={styles.inputContainer}
+					onLayout={({ nativeEvent }) => {
+						setLoginViewYCords({
+							...loginViewYCords,
+							passwordYCoord:
+								nativeEvent.layout.y + nativeEvent.layout.height
+						})
+					}}>
 					<InputText
 						placeholderText={LoginConstants.PASSWORD}
 						value={password}
 						onChangeText={setPassword}
 						secureTextEntry={true}
+						onFocus={() => onFocusInput('password')}
 					/>
 				</View>
-				<View style={styles.ctaContainer}>
+				<View
+					style={styles.ctaContainer}
+					onLayout={({ nativeEvent }) => {
+						setLoginViewYCords({
+							...loginViewYCords,
+							bottomViewYCoord:
+								nativeEvent.layout.y + nativeEvent.layout.height
+						})
+					}}>
 					<Button
 						text={LoginConstants.REGISTER}
 						type="secondary"

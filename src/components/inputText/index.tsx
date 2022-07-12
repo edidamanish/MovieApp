@@ -15,6 +15,7 @@ type InputTextProps = {
 	onEndEditing?: () => void
 	onChangeText?: (text?: string) => void
 	secureTextEntry?: boolean
+	onFocus?: () => void
 }
 
 const InputText: FC<InputTextProps> = props => {
@@ -24,7 +25,8 @@ const InputText: FC<InputTextProps> = props => {
 		value,
 		onEndEditing,
 		onChangeText,
-		secureTextEntry
+		secureTextEntry,
+		onFocus
 	} = props
 
 	const [isSecureTextVisible, setIsSecureTextVisible] = useState(false)
@@ -50,6 +52,7 @@ const InputText: FC<InputTextProps> = props => {
 					onChangeText={onChangeText}
 					secureTextEntry={showSecureTextEntry}
 					autoCapitalize={'none'}
+					onFocus={onFocus}
 				/>
 				{secureTextEntry ? (
 					<TouchableOpacity
