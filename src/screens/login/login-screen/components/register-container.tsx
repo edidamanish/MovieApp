@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Button, InputText } from '../../../../components'
 import { LoginConstants } from '../../../../constants'
-import { useAuthUtilites } from '../../../../hooks'
+import { useAuthUtilites, useKeyboard } from '../../../../hooks'
 
 type RegisterContainerProps = {
 	onLoginClick: () => void
@@ -16,6 +16,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	const [password, setPassword] = useState<string | null>(null)
 	const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
 	const { registerUser } = useAuthUtilites()
+	const { isKeyboardVisible, keyboardHeight } = useKeyboard()
 
 	const { onLoginClick } = props
 
@@ -35,7 +36,13 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	}
 
 	return (
-		<View style={{ width: windowWidth, bottom: 0 }}>
+		<View
+			style={{
+				width: windowWidth,
+				bottom: isKeyboardVisible
+					? keyboardHeight - styles.ctaContainer.marginBottom + 20
+					: 0
+			}}>
 			<GradientView />
 			<View style={styles.container}>
 				<Text style={styles.loginText}>{LoginConstants.REGISTER}</Text>

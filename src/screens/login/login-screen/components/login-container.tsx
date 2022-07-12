@@ -36,7 +36,9 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 		<View
 			style={{
 				width: windowWidth,
-				bottom: isKeyboardVisible ? keyboardHeight - 20 : 0
+				bottom: isKeyboardVisible
+					? keyboardHeight - styles.ctaContainer.marginBottom + 20
+					: 0
 			}}>
 			<GradientView />
 			<View style={styles.container}>
