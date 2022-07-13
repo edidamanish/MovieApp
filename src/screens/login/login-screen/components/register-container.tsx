@@ -187,6 +187,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 							onFocusInput('confirmPassword')
 						}}
 						ref={confirmPasswordInputRef}
+						onSubmitEditing={onRegisterClick}
 					/>
 				</View>
 				<View

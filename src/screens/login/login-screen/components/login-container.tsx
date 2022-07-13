@@ -116,6 +116,7 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 						secureTextEntry={true}
 						onFocus={() => onFocusInput('password')}
 						ref={passwordInputRef}
+						onSubmitEditing={onLoginClick}
 					/>
 				</View>
 				<View
