@@ -5,8 +5,8 @@ import {
 	LoginRequestProps,
 	LoginResponseModel,
 	RegisterRequestProps
-} from '../../models'
-import { SOMETHING_WENT_WRONG } from '../../constants'
+} from '@models/'
+import { SOMETHING_WENT_WRONG } from '@constants/'
 
 const loginUser = (props: LoginRequestProps): Promise<LoginResponseModel> => {
 	const { userName, password } = props

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Keyboard, KeyboardEvent } from 'react-native'
-import { isIOS } from '../utils'
+import { isIOS } from '@utils/'
 
 const useKeyboard = () => {
 	const SHOW_EVENT = isIOS() ? 'keyboardWillShow' : 'keyboardDidShow'

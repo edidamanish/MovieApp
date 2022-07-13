@@ -10,10 +10,10 @@ const LoginScreen: FC = () => {
 	const fadeOutOpacity = useRef(new Animated.Value(0)).current
 
 	const imageSourceList = [
-		'../../../assets/images/spiderverse.webp',
-		'../../../assets/images/encantoMirable.jpeg',
-		'../../../assets/images/shaunTheSheep.jpeg',
-		'../../../assets/images/DrivePoster.jpeg'
+		'@assets/images/spiderverse.webp',
+		'@assets/images/encantoMirable.jpeg',
+		'@assets/images/shaunTheSheep.jpeg',
+		'@assets/images/DrivePoster.jpeg'
 	]
 
 	const startBottomContainerAnimation = (showLogin: boolean) => {

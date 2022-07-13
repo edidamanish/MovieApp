@@ -1,8 +1,7 @@
 import React, { FC, useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Button } from './../../components'
-import { HomeIcon } from './../../assets'
-import { UserContext } from './../../contexts'
+import { Button } from '@components/'
+import { UserContext } from '@contexts/'
 
 const HomeScreen: FC = () => {
 	const { setIsLoggedIn } = useContext(UserContext)

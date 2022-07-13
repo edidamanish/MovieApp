@@ -1,4 +1,4 @@
-import { SecureEye } from '../../assets'
+import { SecureEye } from '@assets/'
 import React, {
 	useImperativeHandle,
 	useMemo,

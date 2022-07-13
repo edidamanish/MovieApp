@@ -2,15 +2,15 @@ import {
 	RegisterRequestProps,
 	LoginResponseModel,
 	LoginRequestProps
-} from '../models'
+} from '@models/'
 import * as KeyChain from 'react-native-keychain'
 import {
 	registerUser as registerUserService,
 	loginUser as loginUserService
-} from '../networking'
-import { UserContext } from '../contexts'
+} from '@networking/'
+import { UserContext } from '@contexts/'
 import { useContext } from 'react'
-import { KeyChainKeys } from '../constants'
+import { KeyChainKeys } from '@constants/'
 
 const useAuthUtilites = () => {
 	const { setIsLoggedIn } = useContext(UserContext)
