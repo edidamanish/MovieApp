@@ -1,9 +1,9 @@
 import { GradientView } from './gradient-view'
 import React, { FC, useRef, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import { Button, InputText, InputTextRef } from '../../../../components'
-import { LoginConstants } from '../../../../constants'
-import { useAuthUtilites, useKeyboard } from '../../../../hooks'
+import { Button, InputText, InputTextRef } from '@components/'
+import { LoginConstants } from '@constants/'
+import { useAuthUtilites, useKeyboard } from '@hooks/'
 
 type RegisterContainerProps = {
 	onLoginClick: () => void

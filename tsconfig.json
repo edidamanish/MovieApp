@@ -1,26 +1,33 @@
-
 {
-  "compilerOptions": {
-    /* Basic Options */
-    "composite": true,
-    "declaration": true,
-    "isolatedModules": false,
-    "jsx": "react",
-    "rootDir": "src",
-    "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "baseUrl": "./",
-    "paths": {
-      "assets": ["src/assets"],
-      "screens": ["src/screens"],
-      "custom-typings":["src/custom-typings"]
-    }
-  },
-  "exclude": [
-    "node_modules", "babel.config.js", "metro.config.js", "jest.config.js"
-  ],
-  "include": [
-    "src"
-  ]
+	"compilerOptions": {
+		/* Basic Options */
+		"composite": true,
+		"declaration": true,
+		"isolatedModules": false,
+		"jsx": "react",
+		"rootDir": "src",
+		"typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@assets/*": ["./src/assets"],
+			"@components/*": ["./src/components"],
+			"@contexts/*": ["./src/contexts"],
+			"@custom-typings/*": ["./src/custom-typings"],
+			"@constants/*": ["./src/constants"],
+			"@hooks/*": ["./src/hooks"],
+			"@models/*": ["./src/models"],
+			"@networking/*": ["./src/networking"],
+			"@screens/*": ["./src/screens"],
+			"@utils/*": ["./src/utils"]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		// "babel.config.js",
+		"metro.config.js",
+		"jest.config.js"
+	],
+	"include": ["src"]
 }
