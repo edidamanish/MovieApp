@@ -1,5 +1,11 @@
 import { SecureEye } from '../../assets'
-import React, { FC, useMemo, useState } from 'react'
+import React, {
+	useImperativeHandle,
+	useMemo,
+	useRef,
+	useState,
+	forwardRef
+} from 'react'
 import {
 	StyleSheet,
 	TextInput,
@@ -16,9 +22,17 @@ type InputTextProps = {
 	onChangeText?: (text?: string) => void
 	secureTextEntry?: boolean
 	onFocus?: () => void
+	onSubmitEditing?: () => void
 }
 
-const InputText: FC<InputTextProps> = props => {
+type InputTextRef = {
+	focus: () => void
+}
+
+const memoInputText: React.ForwardRefRenderFunction<
+	InputTextRef,
+	InputTextProps
+> = (props, ref) => {
 	const {
 		placeholderText,
 		error,
@@ -26,10 +40,20 @@ const InputText: FC<InputTextProps> = props => {
 		onEndEditing,
 		onChangeText,
 		secureTextEntry,
-		onFocus
+		onFocus,
+		onSubmitEditing
 	} = props
 
+	const textInputRef = useRef<TextInput>(null)
 	const [isSecureTextVisible, setIsSecureTextVisible] = useState(false)
+
+	useImperativeHandle(ref, () => ({
+		focus
+	}))
+
+	const focus = () => {
+		textInputRef.current.focus()
+	}
 
 	const showSecureTextEntry = useMemo(() => {
 		if (secureTextEntry && !isSecureTextVisible) return true
@@ -53,6 +77,8 @@ const InputText: FC<InputTextProps> = props => {
 					secureTextEntry={showSecureTextEntry}
 					autoCapitalize={'none'}
 					onFocus={onFocus}
+					onSubmitEditing={onSubmitEditing}
+					ref={textInputRef}
 				/>
 				{secureTextEntry ? (
 					<TouchableOpacity
@@ -69,7 +95,8 @@ const InputText: FC<InputTextProps> = props => {
 	)
 }
 
-export default InputText
+const InputText = forwardRef(memoInputText)
+export { InputText, InputTextRef }
 
 const styles = StyleSheet.create({
 	inputContainer: {

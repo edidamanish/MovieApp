@@ -1,7 +1,7 @@
 import { GradientView } from './gradient-view'
-import React, { FC, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import { Button, InputText } from '../../../../components'
+import { Button, InputText, InputTextRef } from '../../../../components'
 import { LoginConstants } from '../../../../constants'
 import { useAuthUtilites, useKeyboard } from '../../../../hooks'
 
@@ -17,16 +17,20 @@ interface LoginViewYCords {
 
 export const LoginContainer: FC<LoginContainerProps> = props => {
 	const windowWidth = Dimensions.get('window').width
+
 	const [userName, setUserName] = useState<string | null>(null)
 	const [password, setPassword] = useState<string | null>(null)
-	const { loginUser } = useAuthUtilites()
-	const { isKeyboardVisible, keyboardHeight } = useKeyboard()
 	const [loginViewYCords, setLoginViewYCords] = useState<LoginViewYCords>({
 		bottomViewYCoord: 0,
 		userNameYCoord: 0,
 		passwordYCoord: 0
 	})
 	const [bottomOffset, setBottomOffset] = useState(0)
+
+	const passwordInputRef = useRef<InputTextRef>(null)
+
+	const { loginUser } = useAuthUtilites()
+	const { isKeyboardVisible, keyboardHeight } = useKeyboard()
 
 	const { onRegisterClick } = props
 
@@ -91,6 +95,9 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 						onFocus={() => {
 							onFocusInput('username')
 						}}
+						onSubmitEditing={() => {
+							passwordInputRef.current.focus()
+						}}
 					/>
 				</View>
 				<View
@@ -108,6 +115,7 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 						onChangeText={setPassword}
 						secureTextEntry={true}
 						onFocus={() => onFocusInput('password')}
+						ref={passwordInputRef}
 					/>
 				</View>
 				<View
