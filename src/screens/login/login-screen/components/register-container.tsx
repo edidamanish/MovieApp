@@ -8,7 +8,11 @@ import {
 	TouchableOpacity
 } from 'react-native'
 import { Button, InputText, InputTextRef } from '@components/'
-import { LoginConstants } from '@constants/'
+import {
+	AUTH_ERROR_CODES,
+	LoginConstants,
+	SOMETHING_WENT_WRONG
+} from '@constants/'
 import { useAuthUtilites, useKeyboard } from '@hooks/'
 import { dismissKeyboard } from '@utils/'
 
@@ -31,6 +35,9 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	const [email, setEmail] = useState<string | null>(null)
 	const [password, setPassword] = useState<string | null>(null)
 	const [confirmPassword, setConfirmPassword] = useState<string | null>(null)
+	const [emailError, setEmailError] = useState<string | null>(null)
+	const [userNameError, setUserNameError] = useState<string | null>(null)
+	const [passwordError, setPasswordError] = useState<string | null>(null)
 	const [registerViewYCoords, setRegisterViewYCoords] =
 		useState<RegisterViewYCords>({
 			bottomViewYCoord: 0,
@@ -50,6 +57,24 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 
 	const { onLoginClick } = props
 
+	const handleLoginError = (error: any) => {
+		switch (error?.code) {
+			case AUTH_ERROR_CODES.EMAIL_ERROR:
+				setEmailError(error?.message ?? SOMETHING_WENT_WRONG)
+				break
+			case AUTH_ERROR_CODES.USERNAME_ERROR:
+				setUserNameError(error?.message ?? SOMETHING_WENT_WRONG)
+				break
+			case AUTH_ERROR_CODES.PASSWORD_ERROR:
+				console.log(error?.message)
+				setPasswordError(error?.message ?? SOMETHING_WENT_WRONG)
+				break
+			default:
+				//Common toast
+				break
+		}
+	}
+
 	const onRegisterClick = async () => {
 		if (userName && email && password) {
 			try {
@@ -59,8 +84,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 					password
 				})
 			} catch (err: any) {
-				//Handle Error
-				console.log('register click error:', err)
+				handleLoginError(err)
 			}
 		}
 	}
@@ -131,6 +155,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 						onSubmitEditing={() => {
 							userNameInputRef.current.focus()
 						}}
+						error={emailError}
 					/>
 				</View>
 				<View
@@ -153,6 +178,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 						onSubmitEditing={() => {
 							passwordInputRef.current.focus()
 						}}
+						error={userNameError}
 					/>
 				</View>
 				<View
@@ -176,6 +202,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 						onSubmitEditing={() => {
 							confirmPasswordInputRef.current.focus()
 						}}
+						error={passwordError}
 					/>
 				</View>
 				<View

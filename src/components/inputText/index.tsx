@@ -88,9 +88,7 @@ const memoInputText: React.ForwardRefRenderFunction<
 					</TouchableOpacity>
 				) : null}
 			</View>
-			{error ? (
-				<Text style={styles.errorText}>{'some error'}</Text>
-			) : null}
+			{error ? <Text style={styles.errorText}>{error}</Text> : null}
 		</>
 	)
 }

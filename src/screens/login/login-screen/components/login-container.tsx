@@ -8,7 +8,11 @@ import {
 	TouchableOpacity
 } from 'react-native'
 import { Button, InputText, InputTextRef } from '@components/'
-import { LoginConstants } from '@constants/'
+import {
+	AUTH_ERROR_CODES,
+	LoginConstants,
+	SOMETHING_WENT_WRONG
+} from '@constants/'
 import { useAuthUtilites, useKeyboard } from '@hooks/'
 import { dismissKeyboard } from '@utils/'
 
@@ -27,6 +31,8 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 
 	const [userName, setUserName] = useState<string | null>(null)
 	const [password, setPassword] = useState<string | null>(null)
+	const [userNameError, setUserNameError] = useState<string | null>(null)
+	const [passwordError, setPasswordError] = useState<string | null>(null)
 	const [loginViewYCords, setLoginViewYCords] = useState<LoginViewYCords>({
 		bottomViewYCoord: 0,
 		userNameYCoord: 0,
@@ -41,7 +47,24 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 
 	const { onRegisterClick } = props
 
+	const handleLoginError = (error: any) => {
+		switch (error?.code) {
+			case AUTH_ERROR_CODES.USERNAME_ERROR:
+				setUserNameError(error?.message ?? SOMETHING_WENT_WRONG)
+				break
+			case AUTH_ERROR_CODES.PASSWORD_ERROR:
+				console.log(error?.message)
+				setPasswordError(error?.message ?? SOMETHING_WENT_WRONG)
+				break
+			default:
+				//Common toast
+				break
+		}
+	}
+
 	const onLoginClick = async () => {
+		setUserNameError(undefined)
+		setPasswordError(undefined)
 		if (userName && password) {
 			try {
 				await loginUser({
@@ -49,8 +72,8 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 					password
 				})
 			} catch (err: any) {
-				//Handle Error
-				console.log('login click error:', err)
+				console.log(err)
+				handleLoginError(err)
 			}
 		}
 	}
@@ -107,6 +130,7 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 						onSubmitEditing={() => {
 							passwordInputRef.current.focus()
 						}}
+						error={userNameError}
 					/>
 				</View>
 				<View
@@ -126,6 +150,7 @@ export const LoginContainer: FC<LoginContainerProps> = props => {
 						onFocus={() => onFocusInput('password')}
 						ref={passwordInputRef}
 						onSubmitEditing={onLoginClick}
+						error={passwordError}
 					/>
 				</View>
 				<View
