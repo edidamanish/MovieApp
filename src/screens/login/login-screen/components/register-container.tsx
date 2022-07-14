@@ -1,9 +1,16 @@
 import { GradientView } from './gradient-view'
 import React, { FC, useRef, useState } from 'react'
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import {
+	View,
+	Text,
+	StyleSheet,
+	Dimensions,
+	TouchableOpacity
+} from 'react-native'
 import { Button, InputText, InputTextRef } from '@components/'
 import { LoginConstants } from '@constants/'
 import { useAuthUtilites, useKeyboard } from '@hooks/'
+import { dismissKeyboard } from '@utils/'
 
 type RegisterContainerProps = {
 	onLoginClick: () => void
@@ -90,7 +97,9 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 	}
 
 	return (
-		<View
+		<TouchableOpacity
+			onPress={dismissKeyboard}
+			activeOpacity={1}
 			style={{
 				width: windowWidth,
 				bottom: isKeyboardVisible
@@ -212,7 +221,7 @@ export const RegisterContainer: FC<RegisterContainerProps> = props => {
 					/>
 				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 

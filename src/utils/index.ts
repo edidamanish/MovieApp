@@ -1,4 +1,4 @@
-import { Platform } from 'react-native'
+import { Keyboard, Platform } from 'react-native'
 
 const isIOS = () => {
 	return Platform.OS === 'ios'
@@ -8,4 +8,8 @@ const isAndroid = () => {
 	return Platform.OS === 'android'
 }
 
-export { isIOS, isAndroid }
+const dismissKeyboard = () => {
+	Keyboard.dismiss()
+}
+
+export { isIOS, isAndroid, dismissKeyboard }

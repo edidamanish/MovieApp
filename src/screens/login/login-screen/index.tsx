@@ -1,5 +1,12 @@
+import { dismissKeyboard } from '@utils/'
 import React, { FC, useContext, useRef } from 'react'
-import { View, StyleSheet, Dimensions, Animated } from 'react-native'
+import {
+	View,
+	StyleSheet,
+	Dimensions,
+	Animated,
+	TouchableOpacity
+} from 'react-native'
 import { LoginContainer, RegisterContainer } from './components'
 
 const LoginScreen: FC = () => {
@@ -35,7 +42,10 @@ const LoginScreen: FC = () => {
 	}
 
 	return (
-		<View style={styles.conatiner}>
+		<TouchableOpacity
+			style={styles.conatiner}
+			onPress={dismissKeyboard}
+			activeOpacity={1}>
 			<Animated.Image
 				style={{
 					position: 'absolute',
@@ -73,7 +83,7 @@ const LoginScreen: FC = () => {
 					/>
 				</View>
 			</Animated.View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 
